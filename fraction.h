@@ -33,6 +33,5 @@ void Fraction_Reduce(Fraction *f);
 Fraction DecimalToFraction(double decimal);
 SDL_bool Fraction_IsInteger(Fraction *f);
 int PGCD(int a, int b);
-SDL_Texture* RenderFraction(SDL_Renderer *renderer, TTF_Font *font, Fraction *fraction, SDL_bool withSign);
 
 #endif // FRACTION_H_INCLUDED
