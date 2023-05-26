@@ -2,21 +2,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../inc/fraction.h"
-#include "../inc/const.h"
+#include "fraction.h"
 
-Fraction* CreateFraction()
+Fraction* Fraction_Create()
 {
-    Fraction *f = malloc(sizeof (Fraction*));
+    Fraction *f = malloc(sizeof(Fraction));
 
-    f->num = 0;
-    f->den = 1;
-    f->value = 0;
+    if(f != NULL)
+    {
+        f->num = 0;
+        f->den = 1;
+        f->value = 0;
+    }
 
     return f;
 }
 
-void FreeFraction(Fraction *f)
+void Fraction_Free(Fraction *f)
 {
     if(f != NULL)
         free(f);
@@ -70,12 +72,12 @@ double Fraction_GetValue(Fraction *f)
     return f->value;
 }
 
-Fraction Fraction_Sum(Fraction f1, Fraction f2)
+Fraction Fraction_Sum(Fraction *f1, Fraction *f2)
 {
     Fraction result;
 
-    result.num = (f1.num * f2.den) + (f2.num * f1.den);
-    result.den = (f1.den * f2.den);
+    result.num = (f1->num * f2->den) + (f2->num * f1->den);
+    result.den = (f1->den * f2->den);
     result.value = (double)result.num / (double)result.den;
 
     Fraction_Reduce(&result);
@@ -83,12 +85,21 @@ Fraction Fraction_Sum(Fraction f1, Fraction f2)
     return result;
 }
 
-Fraction Fraction_Sub(Fraction f1, Fraction f2)
+void Fraction_SumIn(Fraction *f1, Fraction *f2, Fraction *result)
+{
+    result->num = (f1->num * f2->den) + (f2->num * f1->den);
+    result->den = (f1->den * f2->den);
+    result->value = (double)result->num / (double)result->den;
+
+    Fraction_Reduce(result);
+}
+
+Fraction Fraction_Sub(Fraction *f1, Fraction *f2)
 {
     Fraction result;
 
-    result.num = (f1.num * f2.den) - (f2.num * f1.den);
-    result.den = (f1.den * f2.den);
+    result.num = (f1->num * f2->den) - (f2->num * f1->den);
+    result.den = (f1->den * f2->den);
     result.value = (double)result.num / (double)result.den;
 
     Fraction_Reduce(&result);
@@ -96,12 +107,21 @@ Fraction Fraction_Sub(Fraction f1, Fraction f2)
     return result;
 }
 
-Fraction Fraction_Mul(Fraction f1, Fraction f2)
+void Fraction_SubIn(Fraction *f1, Fraction *f2, Fraction *result)
+{
+    result->num = (f1->num * f2->den) - (f2->num * f1->den);
+    result->den = (f1->den * f2->den);
+    result->value = (double)result->num / (double)result->den;
+
+    Fraction_Reduce(result);
+}
+
+Fraction Fraction_Mul(Fraction *f1, Fraction *f2)
 {
     Fraction result;
 
-    result.num = f1.num * f2.num;
-    result.den = f1.den * f2.den;
+    result.num = f1->num * f2->num;
+    result.den = f1->den * f2->den;
     result.value = (double)result.num / (double)result.den;
 
     Fraction_Reduce(&result);
@@ -109,12 +129,21 @@ Fraction Fraction_Mul(Fraction f1, Fraction f2)
     return result;
 }
 
-Fraction Fraction_Div(Fraction f1, Fraction f2)
+void Fraction_MulIn(Fraction *f1, Fraction *f2, Fraction *result)
+{
+    result->num = f1->num * f2.num;
+    result->den = f1->den * f2.den;
+    result->value = (double)result->num / (double)result->den;
+
+    Fraction_Reduce(result);
+}
+
+Fraction Fraction_Div(Fraction *f1, Fraction *f2)
 {
     Fraction result;
 
-    result.num = f1.num * f2.den;
-    result.den = f1.den * f2.num;
+    result.num = f1->num * f2->den;
+    result.den = f1->den * f2->num;
     result.value = (double)result.num / (double)result.den;
 
     Fraction_Reduce(&result);
@@ -122,11 +151,20 @@ Fraction Fraction_Div(Fraction f1, Fraction f2)
     return result;
 }
 
-Fraction Fraction_Pow(Fraction f, int p)
+void Fraction_DivIn(Fraction *f1, Fraction *f2, Fraction *result)
+{
+    result->num = f1->num * f2->den;
+    result->den = f1->den * f2->num;
+    result->value = (double)result->num / (double)result->den;
+
+    Fraction_Reduce(result);
+}
+
+Fraction Fraction_Pow(Fraction *f, int p)
 {
     Fraction result;
-    result.num = pow(f.num, p);
-    result.den = pow(f.den, p);
+    result.num = pow(f->num, p);
+    result.den = pow(f->den, p);
     result.value = (double)result.num / (double)result.den;
 
     Fraction_Reduce(&result);
@@ -134,16 +172,35 @@ Fraction Fraction_Pow(Fraction f, int p)
     return result;
 }
 
-Fraction Fraction_Sqrt(Fraction f)
+void Fraction_PowIn(Fraction *f, int p, Fraction *result)
+{
+    result->num = pow(f->num, p);
+    result->den = pow(f->den, p);
+    result->value = (double)result->num / (double)result->den;
+
+    Fraction_Reduce(result);
+}
+
+Fraction Fraction_Sqrt(Fraction *f)
 {
     Fraction result, f1, f2;
 
-    f1 = DecimalToFraction(sqrt(f.num));
-    f2 = DecimalToFraction(sqrt(f.den));
+    DecimalToFractionIn(sqrt(f->num), &f1);
+    DecimalToFractionIn(sqrt(f->den), &f2);
 
-    result = Fraction_Div(f1, f2);
+    Fraction_DivIn(&f1, &f2, &result);
 
     return result;
+}
+
+void Fraction_SqrtIn(Fraction *f, Fraction *result)
+{
+    Fraction f1, f2;
+
+    f1 = DecimalToFraction(sqrt(f->num));
+    f2 = DecimalToFraction(sqrt(f->den));
+
+    Fraction_DivIn(&f1, &f2, &result);
 }
 
 void Fraction_Reduce(Fraction *f)
@@ -164,13 +221,15 @@ void Fraction_Reduce(Fraction *f)
     }
 }
 
-Fraction DecimalToFraction(double decimal)
+void DecimalToFraction(double decimal, Fraction *fraction)
 {
     if(decimal == 0)
     {
-        return (Fraction){0, 1, 0};
+        fraction->num = 0;
+        fraction->den = 1;
+        fraction->value = 0;
+        return;
     }
-    Fraction result = {0, 1, decimal};
     int d = 1;
 
     while(decimal - (int)decimal != 0)
@@ -179,15 +238,13 @@ Fraction DecimalToFraction(double decimal)
         d *= 10;
     }
 
-    result.num = decimal;
-    result.den = d;
+    fraction->num = decimal;
+    fraction->den = d;
 
-    Fraction_Reduce(&result);
-
-    return result;
+    Fraction_Reduce(fraction);
 }
 
-SDL_bool Fraction_IsInteger(Fraction *f)
+int Fraction_IsInteger(Fraction *f)
 {
     return fmod(Fraction_GetValue(f), 1.0) == 0;
 }
