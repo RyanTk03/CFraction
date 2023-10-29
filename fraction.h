@@ -1,21 +1,14 @@
 #ifndef FRACTION_H_INCLUDED
 #define FRACTION_H_INCLUDED
 
-/**
-* @brief This structure represent a simple fraction object.
-*
-*/
 typedef struct
 {
     int num;
     int den;
-    double value;
+    float value;
 } Fraction;
 
-
-//Permit to get a fraction from an integer value.
 #define FRACT(n) (Fraction){n, 1, n}
-
 
 /**
 * @brief A function that create a new fraction object.
@@ -28,7 +21,6 @@ typedef struct
 */
 Fraction* Fraction_Create();
 
-
 /**
 * @brief A function that free a fraction object.
 *
@@ -38,7 +30,6 @@ Fraction* Fraction_Create();
 *
 */
 void Fraction_Free(Fraction *f);
-
 
 /**
 * @brief A function that give the numerator of a fraction object.
@@ -50,7 +41,6 @@ void Fraction_Free(Fraction *f);
 */
 int Fraction_GetNum(Fraction *f);
 
-
 /**
 * @brief A function that give the denominator of a fraction object.
 *
@@ -60,7 +50,6 @@ int Fraction_GetNum(Fraction *f);
 *
 */
 int Fraction_GetDen(Fraction *f);
-
 
 /**
 * @brief A function that set the numerator of a fraction object.
@@ -72,11 +61,10 @@ int Fraction_GetDen(Fraction *f);
 * denominator.
 *
 * @param f(Fraction *) The fraction object whose we want to change the numerator.
-* @param value(double) The new numerator of the fraction
+* @param value(float) The new numerator of the fraction
 *
 */
-void Fraction_SetNum(Fraction *f, double value);
-
+void Fraction_SetNum(Fraction *f, float value);
 
 /**
 * @brief A function that set the denominator of a fraction object.
@@ -88,11 +76,10 @@ void Fraction_SetNum(Fraction *f, double value);
 * denominator.
 *
 * @param f(Fraction *) The fraction object whose we want to change the denominator.
-* @param value(double) The new denominator of the fraction
+* @param value(float) The new denominator of the fraction
 *
 */
-void Fraction_SetDen(Fraction *f, double value);
-
+void Fraction_SetDen(Fraction *f, float value);
 
 /**
 * @brief A function that set the value of a fraction object.
@@ -101,11 +88,10 @@ void Fraction_SetDen(Fraction *f, double value);
 * numerator and the denominator implicitly by convert the value to a fraction.
 *
 * @param f(Fraction *) The fraction object whose we want to change the value.
-* @param value(double) The new value of the fraction
+* @param value(float) The new value of the fraction
 *
 */
-void Fraction_SetValue(Fraction* f, double value);
-
+void Fraction_SetValue(Fraction* f, float value);
 
 /**
 * @brief A function that set the denominator of a fraction object.
@@ -121,8 +107,7 @@ void Fraction_SetValue(Fraction* f, double value);
 * @return The value of the fraction.
 *
 */
-double Fraction_GetValue(Fraction *f);
-
+float Fraction_GetValue(Fraction *f);
 
 /**
 * @brief A function that compute the sum of two fraction object.
@@ -135,7 +120,6 @@ double Fraction_GetValue(Fraction *f);
 */
 Fraction Fraction_Sum(Fraction *f1, Fraction *f2);
 
-
 /**
 * @brief A function that compute the sum of two fraction object.
 *
@@ -145,7 +129,6 @@ Fraction Fraction_Sum(Fraction *f1, Fraction *f2);
 *
 */
 void Fraction_SumIn(Fraction *f1, Fraction *f2, Fraction *result);
-
 
 /**
 * @brief A function that compute the substraction of two fraction object.
@@ -158,7 +141,6 @@ void Fraction_SumIn(Fraction *f1, Fraction *f2, Fraction *result);
 */
 Fraction Fraction_Sub(Fraction *f1, Fraction *f2);
 
-
 /**
 * @brief A function that compute the substraction of two fraction object.
 *
@@ -167,8 +149,7 @@ Fraction Fraction_Sub(Fraction *f1, Fraction *f2);
 * @param result(Fraction *) The fraction that contains the result of the compute.
 *
 */
-Fraction Fraction_SubIn(Fraction *f1, Fraction *f2, Fraction *result);
-
+void Fraction_SubIn(Fraction *f1, Fraction *f2, Fraction *result);
 
 /**
 * @brief A function that compute the multiplication of two fraction object.
@@ -181,7 +162,6 @@ Fraction Fraction_SubIn(Fraction *f1, Fraction *f2, Fraction *result);
 */
 Fraction Fraction_Mul(Fraction *f1, Fraction *f2);
 
-
 /**
 * @brief A function that compute the multiplication of two fraction object.
 *
@@ -191,7 +171,6 @@ Fraction Fraction_Mul(Fraction *f1, Fraction *f2);
 *
 */
 void Fraction_MulIn(Fraction *f1, Fraction *f2, Fraction *result);
-
 
 /**
 * @brief A function that compute the division of two fraction object.
@@ -204,7 +183,6 @@ void Fraction_MulIn(Fraction *f1, Fraction *f2, Fraction *result);
 */
 Fraction Fraction_Div(Fraction *f1, Fraction *f2);
 
-
 /**
 * @brief A function that compute the division of two fraction object.
 *
@@ -214,7 +192,6 @@ Fraction Fraction_Div(Fraction *f1, Fraction *f2);
 *
 */
 void Fraction_DivIn(Fraction *f1, Fraction *f2, Fraction *result);
-
 
 /**
 * @brief A function that compute the power of a fraction object to p.
@@ -227,7 +204,6 @@ void Fraction_DivIn(Fraction *f1, Fraction *f2, Fraction *result);
 */
 Fraction Fraction_Pow(Fraction *f, int p);
 
-
 /**
 * @brief A function that compute the power of a fraction object to p.
 *
@@ -238,7 +214,6 @@ Fraction Fraction_Pow(Fraction *f, int p);
 */
 void Fraction_PowIn(Fraction *f, int p, Fraction *result);
 
-
 /**
 * @brief A function that compute the square root of a fraction object.
 *
@@ -248,7 +223,6 @@ void Fraction_PowIn(Fraction *f, int p, Fraction *result);
 *
 */
 Fraction Fraction_Sqrt(Fraction *f);
-
 
 /**
 * @brief A function that compute the square root of a fraction object.
@@ -262,7 +236,6 @@ Fraction Fraction_Sqrt(Fraction *f);
 */
 void Fraction_SqrtIn(Fraction *f, Fraction *result);
 
-
 /**
 * @brief A function that that reduce a fraction object.
 *
@@ -270,41 +243,45 @@ void Fraction_SqrtIn(Fraction *f, Fraction *result);
 * to update the values of numerator and denominator.
 * This function reduce a fraction by calculate first the pgcd of the numerator
 * and the denominator before divides each of them with this pgcd.
+* The algorithm uses here to computes the pgcd is the algorithm of Euclide.
 *
 * @param f(Fraction *) The fraction object to reduce.
 *
 */
 void Fraction_Reduce(Fraction *f);
 
-
 /**
 * @brief A function that convert a decimal value to a fraction.
 *
-* @param decimal(double) The decimal value to convert.
+* @param decimal(float) The decimal value to convert.
 * @param f(Fraction *) The fraction object to reduce.
 *
 */
-void DecimalToFraction(double decimal, Fraction *fraction);
-
+void DecimalToFraction(float decimal, Fraction *fraction);
 
 /**
 * @brief A function that check if a fraction object if contains a floating.
 * value or a integer value
 *
 * @param f(Fraction *) The fraction object to check.
+* @return 0 if the fraction is not an integer and 1 else
 *
 */
 int Fraction_IsInteger(Fraction *f);
 
-
 /**
-* @brief A function that that compute the PGCD of two integer.
+* @brief Change the sign of the fraction to the opposite.
+* If it is '+', it becomes '-' and if it is '-', it becomes '+';
 *
-* The algorithm uses here to computes the pgcd is the algorithm of Euclide.
-*
-* @param f(Fraction *) The fraction object to reduce.
+* @param The fraction to modify.
 *
 */
-int PGCD(int a, int b);
+void Fraction_ToggleSign(Fraction *fraction);
+
+/**
+* @return the pgcd of a and b.
+*
+*/
+int PGCD(int a,int b);
 
 #endif // FRACTION_H_INCLUDED
