@@ -92,12 +92,12 @@ To use this library in your C project, follow these steps:
    #include "fraction.h"
    ```
 Make sure you have linked the library with your project during compilation.
-
+```bash
 gcc -o your_program your_program.c fraction.c -lm
 ```
 Use the provided functions to work with fractions in your C code.
 
-Examples
+## Examples
 Here are some usage examples of the fraction manipulation functions:
 ```c
 // Create fractions
